@@ -9,7 +9,8 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/projects');
+                const apiUrl = import.meta.env.PROD ? '/_/backend/api/projects' : 'http://localhost:5000/api/projects';
+                const res = await fetch(apiUrl);
                 const data = await res.json();
                 setProjectData(data);
             } catch (error) {
