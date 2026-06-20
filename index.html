@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suganth G | Full Stack Developer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Devicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Dynamic Background Canvas -->
+<canvas id="bg"></canvas>
+
+<!-- Loading Screen for Form Submission -->
+<div id="loading-screen" style="display:none;">
+    <div class="loader"></div>
+    <p>Sending message...</p>
+</div>
+
+<!-- Header -->
+<header class="navbar">
+    <div class="container">
+        <a href="#hero" class="logo-link">
+            <div class="logo-circle">S</div>
+        </a>
+        <nav class="nav-links">
+            <a href="#about" class="hover-target">About</a>
+            <a href="#skills" class="hover-target">Skills</a>
+            <a href="#projects" class="hover-target">Projects</a>
+            <a href="#achievements" class="hover-target">Achievements</a>
+            <a href="Suganth G Resume  (1).pdf" target="_blank" class="btn-primary-outline hover-target">Resume</a>
+            <button id="theme-toggle" class="theme-btn hover-target" aria-label="Toggle Dark/Light Mode">
+                <span class="icon">☀️</span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- HERO / ABOUT SECTION -->
+    <section id="hero" class="section reveal">
+        <div class="container hero-container">
+            <div class="hero-content glass-card">
+                <p class="greeting">Hi, I'm <span class="highlight">Suganth G</span></p>
+                
+                <!-- Typing Effect Container -->
+                <h1 class="hero-title">
+                    I am a <br/>
+                    <span id="typing-text" class="highlight"></span><span class="typing-cursor">|</span>
+                </h1>
+                
+                <p class="hero-description">
+                    I'm a passionate developer who enjoys building modern web applications. I love working with technologies like React, Node.js, and MongoDB. I focus on writing clean code, solving real-world problems, and continuously learning new technologies in web development and cloud computing.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary hover-target">Let's Connect</a>
+                    <a href="#projects" class="btn-secondary hover-target">View Work</a>
+                </div>
+            </div>
+            <div class="hero-image glass-card reveal">
+                <img src="Screenshot 2026-03-16 105228.png" alt="Suganth G">
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">My <span class="highlight">Skills</span></h2>
+            <div class="skills-slider">
+                <div class="skills-track hover-target">
+                    <!-- Duplicate items for seamless infinite scroll -->
+                    <div class="skill glass-card"><i class="devicon-java-plain colored"></i><p>Core Java</p></div>
+                    <div class="skill glass-card"><i class="devicon-javascript-plain colored"></i><p>JavaScript</p></div>
+                    <div class="skill glass-card"><i class="devicon-typescript-plain colored"></i><p>TypeScript</p></div>
+                    <div class="skill glass-card"><i class="devicon-react-original colored"></i><p>React.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-express-original colored"></i><p>Express.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-nodejs-plain colored"></i><p>Node.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-mongodb-plain colored"></i><p>MongoDB</p></div>
+                    <div class="skill glass-card"><i class="devicon-git-plain colored"></i><p>Git & GitHub</p></div>
+                    <div class="skill glass-card"><i class="devicon-html5-plain colored"></i><p>HTML & CSS</p></div>
+                    <div class="skill glass-card"><i class="devicon-docker-plain colored"></i><p>Docker</p></div>
+                    
+                    <!-- Duplicated -->
+                    <div class="skill glass-card"><i class="devicon-java-plain colored"></i><p>Core Java</p></div>
+                    <div class="skill glass-card"><i class="devicon-javascript-plain colored"></i><p>JavaScript</p></div>
+                    <div class="skill glass-card"><i class="devicon-typescript-plain colored"></i><p>TypeScript</p></div>
+                    <div class="skill glass-card"><i class="devicon-react-original colored"></i><p>React.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-express-original colored"></i><p>Express.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-nodejs-plain colored"></i><p>Node.js</p></div>
+                    <div class="skill glass-card"><i class="devicon-mongodb-plain colored"></i><p>MongoDB</p></div>
+                    <div class="skill glass-card"><i class="devicon-git-plain colored"></i><p>Git & GitHub</p></div>
+                    <div class="skill glass-card"><i class="devicon-html5-plain colored"></i><p>HTML & CSS</p></div>
+                    <div class="skill glass-card"><i class="devicon-docker-plain colored"></i><p>Docker</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+            <div class="projects-grid">
+                
+                <div class="project-card glass-card hover-target" onclick="openModal('Stream', 'Real-Time Collaborative Video Platform. This project allows multiple users to join a room, share video/audio, and collaborate in real-time. Built with WebRTC, Socket.io, Node.js, and React.', ['React', 'Node.js', 'WebRTC', 'Socket.io'], '#', '#')">
+                    <div class="project-content">
+                        <h3>Stream</h3>
+                        <p>Real-Time Collaborative Video Platform</p>
+                        <span class="click-hint">Click for details →</span>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-card hover-target" onclick="openModal('Campus Management System', 'A comprehensive system designed to streamline campus operations, including student data management, course enrollments, and resource allocation. Features role-based access control and analytics dashboards.', ['MongoDB', 'Express', 'React', 'Node.js'], '#', '#')">
+                    <div class="project-content">
+                        <h3>Campus Management System</h3>
+                        <p>Comprehensive system for managing campus resources.</p>
+                        <span class="click-hint">Click for details →</span>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-card hover-target" onclick="openModal('UniquePaths', 'An algorithmic visualization tool that helps students understand dynamic programming and pathfinding algorithms visually. Users can draw obstacles and watch the algorithm find the optimal path in real-time.', ['JavaScript', 'HTML5 Canvas', 'CSS3'], '#', '#')">
+                    <div class="project-content">
+                        <h3>UniquePaths</h3>
+                        <p>Algorithm Visualization Tool</p>
+                        <span class="click-hint">Click for details →</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION -->
+    <section id="achievements" class="section reveal">
+        <div class="container">
+            <div class="achievements-grid">
+                <div class="achievements-card glass-card">
+                    <h2 class="section-title" style="margin-bottom: 20px; text-align: left;">Achievements</h2>
+                    <ul class="achievement-list">
+                        <li>
+                            <strong>Instructor, BIT Campus:</strong> Mentored 50 first year students in Fundamentals of Web Development during a 15-day program, achieving 100% completion rate and positive feedback.
+                        </li>
+                        <li>
+                            <strong>LeetCode:</strong> Solved 400+ problems in Data Structures and Algorithms.
+                        </li>
+                    </ul>
+                </div>
+                <div class="soft-skills-card glass-card reveal delay-1">
+                    <h2 class="section-title" style="margin-bottom: 20px; text-align: left;">Soft Skills</h2>
+                    <ul class="skills-list">
+                        <li><strong>Collaboration:</strong> Worked effectively in team projects.</li>
+                        <li><strong>Communication:</strong> Clear communication with team members and mentors.</li>
+                        <li><strong>Problem Solving:</strong> Strong ability to analyze and solve coding problems.</li>
+                        <li><strong>Time Management:</strong> Completed tasks within deadlines.</li>
+                        <li><strong>Continuous Learning:</strong> Always learning new technologies.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section reveal">
+        <div class="container">
+            <div class="contact-header">
+                <h2 class="section-title">Got ideas? <span class="highlight">Let's team up.</span></h2>
+                <p class="contact-subtitle">Feel free to reach out to discuss potential projects, collaborations, or any questions you may have.</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <!-- LEFT CARD -->
+                <div class="contact-info glass-card">
+                    <div class="contact-icon">👋</div>
+                    <h3>Suganth G</h3>
+                    <div class="info-item hover-target">
+                        <i class="devicon-google-plain"></i>
+                        <a href="mailto:suganthg2007@gmail.com">suganthg2007@gmail.com</a>
+                    </div>
+                    <div class="info-item">
+                        <span>📞</span>
+                        <p>9361872943</p>
+                    </div>
+                    <div class="info-item">
+                        <span>📍</span>
+                        <p>Namakkal</p>
+                    </div>
+                </div>
+
+                <!-- RIGHT FORM -->
+                <iframe name="hidden_iframe" style="display:none;"></iframe>
+                
+                <form id="contactForm" class="contact-form glass-card"
+                      action="https://script.google.com/macros/s/AKfycbyx7JSgviRJDm2znRtjtGfulhRdjTLImXeFyksoPKsqrErVgPtunQGp6qwAgQxMvO1X/exec"
+                      method="POST"
+                      target="hidden_iframe">
+                    
+                    <h3>Reach out.</h3>
+                    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required class="hover-target">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required class="hover-target">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Your Phone Number" class="hover-target">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Why are you reaching out?" rows="4" required class="hover-target"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary hover-target">Submit Message</button>
+                    
+                    <div id="successMsg" class="success-message" style="display:none;">
+                        Message successfully sent! I will get back to you soon.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <h3>Suganth G</h3>
+            <p>All rights reserved. © Copyright 2026</p>
+        </div>
+    </div>
+</footer>
+
+<!-- PROJECT MODAL -->
+<div id="projectModal" class="modal">
+    <div class="modal-content glass-card">
+        <span class="close-modal hover-target" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title" class="highlight">Project Title</h2>
+        
+        <p id="modal-desc">Project Description goes here.</p>
+        
+        <div class="modal-tech">
+            <h4>Tech Stack:</h4>
+            <div id="modal-tags" class="tech-tags">
+                <!-- Tags injected by JS -->
+            </div>
+        </div>
+        
+        <div class="modal-links">
+            <a id="modal-github" href="#" target="_blank" class="btn-secondary hover-target">GitHub Repo</a>
+            <a id="modal-demo" href="#" target="_blank" class="btn-primary hover-target">Live Demo</a>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
