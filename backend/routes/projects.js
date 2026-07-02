@@ -15,7 +15,7 @@ const projects = [
         desc: "A comprehensive system designed to streamline campus operations, including student data management, course enrollments, and resource allocation. Features role-based access control and analytics dashboards.",
         tags: ['MongoDB', 'Express', 'React', 'Node.js'],
         githubLink: "#",
-        demoLink: "#"
+        demoLink: "https://camps-os.vercel.app"
     },
     {
         title: "AlgoVerse",
