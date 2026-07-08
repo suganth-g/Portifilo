@@ -1,168 +1,130 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
+const stars = Array.from({ length: 50 }).map((_, i) => ({
+  id: i,
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: Math.random() * 2 + 1,
+  duration: Math.random() * 3 + 2,
+  delay: Math.random() * 2
+}));
 
 const BackgroundCanvas = () => {
-    const canvasRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
 
-        let particles = [];
-        let codes = [];
-        let symbols = ["< >", "{ }", "</>", "JS", "CSS", "HTML", "TS", "React", "Node"];
-        let animationFrameId;
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-            }
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
+  if (!isMounted) return null;
 
-            draw() {
-                ctx.fillStyle = "rgba(56, 189, 248, 0.5)"; 
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+  return (
+    <div className="fixed inset-0 w-full h-full -z-50 overflow-hidden bg-[#050816]">
 
-        class CodeSymbol {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.text = symbols[Math.floor(Math.random() * symbols.length)];
-                this.speed = Math.random() * 0.5 + 0.2;
-            }
+      {/* 1. Base Grid Layer */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #ffffff 1px, transparent 1px),
+            linear-gradient(to bottom, #ffffff 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }}
+      />
 
-            update() {
-                this.y += this.speed;
-                if (this.y > canvas.height) this.y = -20;
-            }
+      {/* 2. Floating Aurora / Mesh Gradients (Glassmorphism style) */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{
+            x: [0, 100, 0, -100, 67],
+            y: [0, 50, 100, 50, 0],
+            scale: [1, 1.2, 1, 0.8, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full opacity-30"
+          style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.8) 0%, transparent 70%)', filter: 'blur(120px)' }}
+        />
+        <motion.div
+          animate={{
+            x: [0, -100, 0, 100, 0],
+            y: [0, -50, -100, -50, 0],
+            scale: [1, 0.8, 1, 1.2, 1],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.8) 0%, transparent 70%)', filter: 'blur(150px)' }}
+        />
+        <motion.div
+          animate={{
+            x: [0, 50, -50, 50, 0],
+            y: [0, 100, 0, -100, 0],
+            scale: [1, 1.1, 0.9, 1.1, 1],
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-[20%] left-[20%] w-[50%] h-[50%] rounded-full opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.8) 0%, transparent 70%)', filter: 'blur(130px)' }}
+        />
+      </div>
 
-            draw() {
-                ctx.fillStyle = "rgba(129, 140, 248, 0.3)"; 
-                ctx.font = "14px 'Inter', monospace";
-                ctx.fillText(this.text, this.x, this.y);
-            }
-        }
+      {/* 3. Star Field / Particles */}
+      <div className="absolute inset-0">
+        {stars.map((star) => (
+          <motion.div
+            key={star.id}
+            initial={{ opacity: 0.1, y: 0 }}
+            animate={{
+              opacity: [0.1, 0.8, 0.1],
+              y: [-10, 10, -10]
+            }}
+            transition={{
+              duration: star.duration,
+              repeat: Infinity,
+              delay: star.delay,
+              ease: "easeInOut"
+            }}
+            className="absolute rounded-full bg-white"
+            style={{
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              boxShadow: '0 0 10px 2px rgba(255,255,255,0.3)'
+            }}
+          />
+        ))}
+      </div>
 
-        function init() {
-            particles = [];
-            codes = [];
-            
-            const numParticles = Math.floor((window.innerWidth * window.innerHeight) / 10000);
-            const numCodes = Math.floor(numParticles / 4);
+      {/* 4. Mouse Follow Spotlight */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none opacity-40 mix-blend-screen"
+        animate={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(56, 189, 248, 0.15), transparent 40%)`
+        }}
+        transition={{ type: "tween", ease: "linear", duration: 0.1 }}
+      />
 
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-
-            for (let i = 0; i < numCodes; i++) {
-                codes.push(new CodeSymbol());
-            }
-        }
-
-        let mouse = { x: null, y: null };
-
-        const handleMouseMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-
-        const handleMouseOut = () => {
-            mouse.x = null;
-            mouse.y = null;
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("mouseout", handleMouseOut);
-
-        function connect() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = dx * dx + dy * dy;
-
-                    if (distance < 15000) {
-                        ctx.strokeStyle = "rgba(56, 189, 248, 0.1)"; 
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function mouseGlow() {
-            if (mouse.x && mouse.y) {
-                let gradient = ctx.createRadialGradient(
-                    mouse.x, mouse.y, 10,
-                    mouse.x, mouse.y, 150
-                );
-                gradient.addColorStop(0, "rgba(56, 189, 248, 0.15)");
-                gradient.addColorStop(1, "transparent");
-
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(mouse.x, mouse.y, 150, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach((p) => {
-                p.update();
-                p.draw();
-            });
-
-            codes.forEach((c) => {
-                c.update();
-                c.draw();
-            });
-
-            connect();
-            mouseGlow();
-
-            animationFrameId = requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        return () => {
-            window.removeEventListener("resize", resizeCanvas);
-            window.removeEventListener("mousemove", handleMouseMove);
-            window.removeEventListener("mouseout", handleMouseOut);
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
-
-    return <canvas id="bg" ref={canvasRef}></canvas>;
+      {/* 5. Noise Texture Overlay to add premium feel and reduce banding */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        }}
+      />
+    </div>
+  );
 };
 
 export default BackgroundCanvas;

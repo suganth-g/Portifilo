@@ -8,7 +8,7 @@ const useScrollReveal = () => {
             rootMargin: "0px 0px -50px 0px"
         };
 
-        const revealObserver = new IntersectionObserver((entries, observer) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
                 entry.target.classList.add('active');
