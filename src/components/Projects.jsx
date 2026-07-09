@@ -270,7 +270,7 @@ const Projects = () => {
         </h2>
 
         {/* Filter pills */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginBottom: 48 }}>
+        <div className="filter-container">
           {FILTERS.map((f) => (
             <button
               key={f}
@@ -321,7 +321,7 @@ const Projects = () => {
             >
               <WindowHeader title={project.title} />
 
-              <div style={{ padding: '36px 40px', maxHeight: '80vh', overflowY: 'auto' }}>
+              <div className="project-modal-content">
                 {/* Project header */}
                 <div style={{ textAlign: 'center', marginBottom: 36 }}>
                   <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, marginBottom: 12, letterSpacing: '-0.03em' }}>
@@ -336,7 +336,7 @@ const Projects = () => {
                 </div>
 
                 {/* Body: screenshot + sidebar */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 32, alignItems: 'start' }}>
+                <div className="project-body-grid">
                   {/* Left */}
                   <div>
                     <ProjectImage src={project.image} alt={project.title} />
@@ -403,6 +403,8 @@ const Projects = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '16px',
                     marginTop: 40,
                     paddingTop: 24,
                     borderTop: '1px solid rgba(255,255,255,0.07)',
@@ -430,8 +432,10 @@ const Projects = () => {
             </motion.div>
           ) : (
             <motion.p
+              key="empty-state"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', paddingTop: 60 }}
             >
               No projects found for this filter.

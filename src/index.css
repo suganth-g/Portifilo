@@ -260,6 +260,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .theme-btn:hover { background: rgba(255,255,255,0.1); }
 
+/* Hamburger Menu Icon */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1001; /* Above nav links */
+}
+
+.hamburger .bar {
+    width: 28px;
+    height: 3px;
+    background-color: var(--text-primary);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
 /* =========================================
    BACKGROUND CANVAS
    ========================================= */
@@ -387,6 +404,30 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+}
+
+/* =========================================
+   PROJECTS SECTION (Responsive helper classes)
+   ========================================= */
+.project-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    align-items: start;
+}
+
+.project-modal-content {
+    padding: 36px 40px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 48px;
 }
 
 /* =========================================
@@ -585,7 +626,69 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .section { padding: 70px 0; }
-    .hero-image img { max-width: 200px; }
+    /* Navbar / Hamburger */
+    .hamburger { display: flex; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 24px 0;
+        gap: 24px;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        border-bottom: 1px solid var(--glass-border);
+        z-index: 1000;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .nav-links.open { transform: translateY(0); }
+    .nav-links a:not(.btn-primary-outline) { font-size: 1.15rem; }
+    .nav-links .btn-primary-outline { margin: 0 auto; width: 80%; }
+
+    /* Layout & Typography */
+    .section { padding: 60px 0; }
+    .section-title { font-size: 2.2rem; margin-bottom: 2rem; }
+    
+    /* Hero */
+    .hero-container { margin-top: 10px; gap: 20px; }
+    .hero-title { font-size: 2.2rem; min-height: auto; margin-bottom: 16px; }
+    .hero-description { font-size: 1rem; margin-bottom: 28px; line-height: 1.6; }
+    .hero-image img { max-width: 220px; }
+    .hero-buttons { flex-direction: column; width: 100%; gap: 12px; }
+    .hero-buttons a { width: 100%; text-align: center; justify-content: center; }
+
+    /* Projects */
+    .filter-container { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+    .filter-container::-webkit-scrollbar { height: 4px; }
+    .filter-container::-webkit-scrollbar-track { background: transparent; }
+    .filter-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    
+    .project-body-grid { grid-template-columns: 1fr; gap: 24px; }
+    .project-modal-content { padding: 24px 20px; }
+    
+    /* Achievements & Skills */
+    .achievements-grid { gap: 24px; }
+    .achievements-card, .soft-skills-card { padding: 24px; }
+    .achievement-list li, .skills-list li { font-size: 0.95rem; }
+    
+    /* Contact */
+    .contact-wrapper { gap: 24px; }
+    .contact-info, .contact-form { padding: 24px; }
+    .contact-icon { font-size: 2.2rem; }
+    .contact-info h3, .contact-form h3 { font-size: 1.4rem; }
+    .info-item { font-size: 0.9rem; }
+    
+    /* Forms & Buttons Full Width */
+    .form-group input, .form-group textarea { font-size: 1rem; padding: 12px 14px; }
+    .contact-form button { width: 100%; justify-content: center; }
 }
